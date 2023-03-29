@@ -8,7 +8,7 @@ import { Button } from "../../components/buttom";
 
 
 const TopSectionContainer = styled.div`
-    min-height: 400px;
+    min-height: 600px;
     margin-tpo : 6em;
 ${tw`
     w-full 
