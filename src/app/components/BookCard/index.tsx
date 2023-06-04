@@ -103,7 +103,7 @@ const DateCalendar = styled(Calendar)`
     top: 3.5em;
     left: -2em;
   }
-`
+`as any ;
 
 export function BookCard(){
     const [startDate, setStartDate] = useState<Date>(new Date());
@@ -149,7 +149,7 @@ export function BookCard(){
         </SmallIcon>
         {isReturnCalendarOpen && (
           <DateCalendar
-            // offset
+            offset
             value={returnDate}
             onChange={setReturnDate as any}
           />
