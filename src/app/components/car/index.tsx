@@ -15,8 +15,8 @@ import { ICar } from "../../../typings/car";
   
   const CarContainer = styled.div`
     width: 16.5em;
-    min-height: 23em;
-    max-height: 23em;
+    min-height: 22.2em;
+    max-height: 30.2em;
     box-shadow: 0 1.3px 17px -2px rgba(0, 0, 0, 0.4);
     ${tw`
       flex
