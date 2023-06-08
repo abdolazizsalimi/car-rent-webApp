@@ -3,9 +3,9 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { ICar } from "../../../typings/car";
 import { Car } from "../../components/car";
-// import Carousel, { Dots, slidesToShowPlugin } from "@brainhubeu/react-carousel";
+import Carousel, { Dots, slidesToShowPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "react-responsive"; 
 import { SCREENS } from "../../components/responsive";
 import { Dispatch } from "redux";
 import MoonLoader from "react-spinners/MoonLoader";
@@ -142,63 +142,57 @@ export function TopCars() {
 
   // const numberOfDots = isMobile ? cars.length : Math.ceil(cars.length / 3);
 
+
+const cars = [(<Car {...testCar}/>) , (<Car {...testCar2}/>),(<Car {...testCar}/>), (<Car {...testCar}/>),(<Car {...testCar2}/>)]
+
+
+
+
   return (
     <TopCarsContainer>
       <Title>Explore Our Top Deals</Title>
       <CarsContainer>
-        <Car {...testCar} />
-        <Car {...testCar} />
-
+        <Carousel value={current}
+                    onChange={setCurrent}
+                    slides={cars}
+                    
+                    plugins={[
+                      "clickToChange",
+                      {
+                        resolve: slidesToShowPlugin,
+                        options: {
+                          numberOfSlides: 3,
+                        },
+                      },
+                    ]}
+                    breakpoints={{
+                      640: {
+                        plugins: [
+                          {
+                            resolve: slidesToShowPlugin,
+                            options: {
+                              numberOfSlides: 1,
+                            },
+                          },
+                        ],
+                      },
+                      900: {
+                        plugins: [
+                          {
+                            resolve: slidesToShowPlugin,
+                            options: {
+                              numberOfSlides: 2,
+                            },
+                          },
+                        ],
+                      },
+                    }} 
+                    />
+        
+        
+        <Dots value={current} onChange={setCurrent} number={isMobile ? cars.length: cars.length/2}  />
         </CarsContainer>
-      {/* )} */}
-    </TopCarsContainer>
+    </TopCarsContainer> 
 
 );
-
-
-      {/* {isLoading && (
-        <LoadingContainer>
-          <MoonLoader loading size={20} />
-        </LoadingContainer>
-      )}
-      {isEmptyTopCars && !isLoading && <EmptyCars>No Cars To Show!</EmptyCars>}
-      {!isEmptyTopCars && !isLoading && ( */}
-          {/* <Carousel
-            value={current}
-            onChange={setCurrent}
-            slides={cars}
-            plugins={[
-              "clickToChange",
-              {
-                resolve: slidesToShowPlugin,
-                options: {
-                  numberOfSlides: 3,
-                },
-              },
-            ]}
-            breakpoints={{
-              640: {
-                plugins: [
-                  {
-                    resolve: slidesToShowPlugin,
-                    options: {
-                      numberOfSlides: 1,
-                    },
-                  },
-                ],
-              },
-              900: {
-                plugins: [
-                  {
-                    resolve: slidesToShowPlugin,
-                    options: {
-                      numberOfSlides: 2,
-                    },
-                  },
-                ],
-              },
-            }}
-          />
-          <Dots value={current} onChange={setCurrent} number={numberOfDots} /> */}
-
 }
