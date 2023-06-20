@@ -16,6 +16,7 @@ import { makeSelectTopCars } from "./selectors";
 import { GetCars_cars } from "../../components/services/carService/__generated__/GetCars";
 import carService from "../../components/services/carService";
 
+
 const TopCarsContainer = styled.div`
   ${tw`
     max-w-screen-lg
@@ -96,16 +97,16 @@ export function TopCars() {
 
   // // console.log("Cars", topCars);
 
-  // const fetchTopCars = async () => {
-  //   // setLoading(true);
-  //   // const cars = await carService.getCars().catch((err) => {
-  //   //   console.log("Error: ", err);
-  //   // });
+  const fetchTopCars = async () => {
+    // setLoading(true);
+    const cars = await carService.getCars().catch((err) => {
+      console.log("Error: ", err);
+    });
 
-  //   // console.log("Cars: ", cars);
-  //   // if (cars) setTopCars(cars);
-  //   // setLoading(false);
-  // };
+    console.log("Cars: ", cars);
+    // if (cars) setTopCars(cars);
+    // setLoading(false);
+  };
 
   const testCar: ICar = {
     name: "Audi S3 Car",
@@ -129,9 +130,9 @@ export function TopCars() {
     gas: "Petrol",
   };
 
-  // useEffect(() => {
-  //   fetchTopCars();
-  // }, []);
+  useEffect(() => {
+    fetchTopCars();
+  }, []);
 
   // const isEmptyTopCars = !topCars || topCars.length === 0;
 
