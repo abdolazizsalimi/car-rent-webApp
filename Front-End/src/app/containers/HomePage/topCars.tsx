@@ -76,15 +76,15 @@ const LoadingContainer = styled.div`
   `};
 `;
 
-// const actionDispatch = (dispatch: Dispatch) => ({
-//   setTopCars: (cars: GetCars_cars[]) => dispatch(setTopCars(cars)),
-// });
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTopCars: (cars: GetCars_cars[]) => dispatch(setTopCars(cars)),
+});
 
-// const stateSelector = createSelector(makeSelectTopCars, (topCars) => ({
-//   topCars,
-// }));
+const stateSelector = createSelector(makeSelectTopCars, (topCars) => ({
+  topCars,
+}));
 
-// const wait = (timeout: number) => new Promise((rs) => setTimeout(rs, timeout));
+const wait = (timeout: number) => new Promise((rs) => setTimeout(rs, timeout));
 
 export function TopCars() {
   const [current, setCurrent] = useState(0);
@@ -92,108 +92,137 @@ export function TopCars() {
 
   const isMobile = useMediaQuery({ maxWidth: SCREENS.sm });
 
-  // const { topCars } = useSelector(stateSelector);
-  // const { setTopCars } = actionDispatch(useDispatch());
+  const { topCars } = useSelector(stateSelector);
+  const { setTopCars } = actionDispatch(useDispatch());
 
-  // // console.log("Cars", topCars);
+  
 
   const fetchTopCars = async () => {
-    // setLoading(true);
+    await wait(5000);
+    setLoading(true);
     const cars = await carService.getCars().catch((err) => {
       console.log("Error: ", err);
     });
 
     console.log("Cars: ", cars);
-    // if (cars) setTopCars(cars);
-    // setLoading(false);
+    if (cars) setTopCars(cars);
+    setLoading(false);
   };
 
-  const testCar: ICar = {
-    name: "Audi S3 Car",
-    mileage: "10k",
-    thumbnailSrc:
-      "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
-    dailyPrice: 70,
-    monthlyPrice: 1600,
-    gearType: "Auto",
-    gas: "Petrol",
-  };
+  // const testCar: ICar = {
+  //   name: "Audi S3 Car",
+  //   mileage: "10k",
+  //   thumbnailSrc:
+  //     "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
+  //   dailyPrice: 70,
+  //   monthlyPrice: 1600,
+  //   gearType: "Auto",
+  //   gas: "Petrol",
+  // };
 
-  const testCar2: ICar = {
-    name: "HONDA cITY 5 Seater Car",
-    mileage: "20k",
-    thumbnailSrc:
-      "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
-    dailyPrice: 50,
-    monthlyPrice: 1500,
-    gearType: "Auto",
-    gas: "Petrol",
-  };
+  // const testCar2: ICar = {
+  //   name: "HONDA cITY 5 Seater Car",
+  //   mileage: "20k",
+  //   thumbnailSrc:
+  //     "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
+  //   dailyPrice: 50,
+  //   monthlyPrice: 1500,
+  //   gearType: "Auto",
+  //   gas: "Petrol",
+  // };
+
+
+
+
+
+
+
+  // mutation{
+  //   addNewCar(newCarData:{
+  //     name : "Honda city " ,
+  //     monthlyPrice: 20000 ,
+  //     dailyPrice : 50 , 
+  //     gearType : "Auto", 
+  //     gas : "petrol" ,
+  //     mileage: "20k",
+  //     thumbnailUrl : "https://honda.com.pk/images/landingimages/images/city/city1.2.jpg"
+  //   }){
+  //     id 
+  //     name 
+  //     monthlyPrice
+  //     dailyPrice
+  //     gearType
+  //     gas
+  //     mileage
+  //     thumbnailUrl
+      
+  //   }
+  // }
 
   useEffect(() => {
     fetchTopCars();
   }, []);
 
-  // const isEmptyTopCars = !topCars || topCars.length === 0;
+  const isEmptyTopCars = !topCars || topCars.length === 0;
 
-  // const cars =
-  //   (!isEmptyTopCars &&
-  //     topCars.map((car) => <Car {...car} thumbnailSrc={car.thumbnailUrl} />)) ||
-  //   [];
+  const cars =
+    (!isEmptyTopCars &&
+      topCars.map((car) => <Car {...car} thumbnailSrc={car.thumbnailUrl} />)) ||
+    [];
 
-  // const numberOfDots = isMobile ? cars.length : Math.ceil(cars.length / 3);
-
-
-const cars = [(<Car {...testCar}/>) , (<Car {...testCar2}/>),(<Car {...testCar}/>), (<Car {...testCar}/>),(<Car {...testCar2}/>)]
+const numberOfDots = isMobile ? cars.length : Math.ceil(cars.length / 3);
 
 
-
-
-  return (
-    <TopCarsContainer>
-      <Title>Explore Our Top Deals</Title>
+return (
+  <TopCarsContainer>
+    <Title>Explore Our Top Deals</Title>
+    {isLoading && (
+      <LoadingContainer>
+        <MoonLoader loading size={20} />
+      </LoadingContainer>
+    )}
+    {isEmptyTopCars && !isLoading && <EmptyCars>No Cars To Show!</EmptyCars>}
+    {!isEmptyTopCars && !isLoading && (
       <CarsContainer>
-        <Carousel value={current}
-                    onChange={setCurrent}
-                    slides={cars}
-                    
-                    plugins={[
-                      "clickToChange",
-                      {
-                        resolve: slidesToShowPlugin,
-                        options: {
-                          numberOfSlides: 3,
-                        },
-                      },
-                    ]}
-                    breakpoints={{
-                      640: {
-                        plugins: [
-                          {
-                            resolve: slidesToShowPlugin,
-                            options: {
-                              numberOfSlides: 1,
-                            },
-                          },
-                        ],
-                      },
-                      900: {
-                        plugins: [
-                          {
-                            resolve: slidesToShowPlugin,
-                            options: {
-                              numberOfSlides: 2,
-                            },
-                          },
-                        ],
-                      },
-                    }} 
-                    />
-        
-        
-        <Dots value={current} onChange={setCurrent} number={isMobile ? cars.length: cars.length/2}  />
-        </CarsContainer>
-    </TopCarsContainer> 
-
+        <Carousel
+          value={current}
+          onChange={setCurrent}
+          slides={cars}
+          plugins={[
+            "clickToChange",
+            {
+              resolve: slidesToShowPlugin,
+              options: {
+                numberOfSlides: 3,
+              },
+            },
+          ]}
+          breakpoints={{
+            640: {
+              plugins: [
+                {
+                  resolve: slidesToShowPlugin,
+                  options: {
+                    numberOfSlides: 1,
+                  },
+                },
+              ],
+            },
+            900: {
+              plugins: [
+                {
+                  resolve: slidesToShowPlugin,
+                  options: {
+                    numberOfSlides: 2,
+                  },
+                },
+              ],
+            },
+          }}
+        />
+        <Dots value={current} onChange={setCurrent} number={numberOfDots} />
+      </CarsContainer>
+    )}
+  </TopCarsContainer>
 );
 }

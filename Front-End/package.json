@@ -18,6 +18,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-responsive": "^8.0.5",
     "apollo": "^2.34.0",
+    "express": "^4.18.2",
     "graphql": "^15.8.0",
     "install": "^0.13.0",
     "moon-loader": "^0.1.0",
@@ -30,6 +31,8 @@
     "react-responsive": "^9.0.2",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
+    "redux-logger": "^3.0.6",
+    "reselect": "^4.1.8",
     "styled-components": "^5.3.6",
     "twin.macro": "^3.1.0",
     "typescript": "^4.9.5",
@@ -40,8 +43,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "schema:download": "npx apollo service:download --endpoint=http://localhost:8080/graphql ./src/app/graphql-schema.json",
-    "schema:generate-watch": "npx apollo codegen:generate --localSchemaFile=./src/app/graphql-schema.json --target=typescript --tagName=gql --watch"
+    "schema:download": "npx apollo service:download --endpoint=http://localhost:8181/graphql ./src/app/graphql-schema.json",
+    "schema:generate-watch": "npx apollo codegen:generate --localSchemaFile=./src/app/graphql-schema.json --target=typescript --tagName=gql --watch",
+    "start:prod": "node ./server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +68,7 @@
   "devDependencies": {
     "@craco/craco": "^7.0.0",
     "@types/react-burger-menu": "^2.8.3",
+    "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.26",
     "tailwindcss": "^3.2.6"
   }

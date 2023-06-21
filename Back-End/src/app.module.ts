@@ -11,7 +11,7 @@ import { ApolloDriver } from '@nestjs/apollo/dist/drivers/apollo.driver';
   imports: [ConfigModule.forRoot(),
      DatabaseModule,
     GraphQLModule.forRoot({
-    playground :  true  , 
+    playground : true, 
     debug : true,
     driver: ApolloDriver,
     autoSchemaFile : true
@@ -20,4 +20,5 @@ import { ApolloDriver } from '@nestjs/apollo/dist/drivers/apollo.driver';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}
