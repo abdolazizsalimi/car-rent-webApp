@@ -7,6 +7,7 @@ WORKDIR /usr/src/api
 
 COPY package.json .
 COPY yarn.lock .
+COPY bin .
 
 RUN yarn global add @nestjs/cli
 RUN yarn install --production=true
